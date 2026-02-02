@@ -19,4 +19,21 @@ export class DashboardPage extends BasePage {
     this.containsText('Dashboard').should('be.visible')
     return this
   }
+
+  openUserDropdown() {
+    this.waitForElement('.oxd-userdropdown-name')
+    this.clickElement('.oxd-userdropdown-name')
+    return this
+  }
+
+  clickLogout() {
+    this.containsText('Logout').click()
+    return this
+  }
+
+  logout() {
+    this.openUserDropdown()
+    this.clickLogout()
+    return this
+  }
 }

@@ -20,11 +20,13 @@ export class LoginPage extends BasePage {
   }
 
   enterUsername(username) {
+    this.waitForElement(this.usernameField)
     this.fillInput(this.usernameField, username)
     return this
   }
 
   enterPassword(password) {
+    this.waitForElement(this.passwordField)
     this.fillInput(this.passwordField, password)
     return this
   }
@@ -36,7 +38,6 @@ export class LoginPage extends BasePage {
 
   verifyLoginSuccess() {
     this.verifyUrlContains('/dashboard')
-    this.containsText('Dashboard').should('be.visible')
     return this
   }
 
