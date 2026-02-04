@@ -49,4 +49,9 @@ export class LoginPage extends BasePage {
     this.verifyLoginSuccess()
     return this
   }
+
+  verifyPasswordMasked() {
+    this.getElement(this.passwordField).should('have.attr', 'type', 'password')
+    return this
+  }
 }
