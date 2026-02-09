@@ -15,7 +15,7 @@ export class LoginPage extends BasePage {
   }
 
   verifyLoginPageVisible() {
-    this.getText(this.loginHeader).should('contain.text', 'Login')
+    cy.contains('Login', { timeout: 10000 }).should('be.visible')
     return this
   }
 

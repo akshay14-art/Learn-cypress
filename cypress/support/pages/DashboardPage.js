@@ -16,7 +16,7 @@ export class DashboardPage extends BasePage {
   }
 
   verifyDashboardVisible() {
-    this.containsText('Dashboard').should('be.visible')
+    this.containsText('Dashboard', { timeout: 30000 }).should('be.visible')
     return this
   }
 

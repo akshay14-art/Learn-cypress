@@ -12,6 +12,7 @@ export class PIMPage extends BasePage {
     this.personalDetailsHeader = 'Personal Details'
     this.searchInput = 'input[placeholder="Type for hints..."]'
     this.searchButton = 'Search'
+    this.resetButton = 'Reset'
     this.tableBody = '.oxd-table-body'
     this.tableCard = '.oxd-table-card'
     this.tableCell = '.oxd-table-cell'
@@ -86,6 +87,16 @@ export class PIMPage extends BasePage {
   searchEmployee(employeeName) {
     cy.get(this.searchInput).first().type(employeeName)
     this.clickContains(this.searchButton)
+    return this
+  }
+
+  clickReset() {
+    this.clickContains(this.resetButton)
+    return this
+  }
+
+  verifySearchInputCleared() {
+    cy.get(this.searchInput).first().should('have.value', '')
     return this
   }
 

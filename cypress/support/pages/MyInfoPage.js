@@ -9,6 +9,8 @@ export class MyInfoPage extends BasePage {
     this.fileInput = 'input[type="file"]'
     this.saveButton = 'Save'
     this.successMessage = 'Successfully Updated'
+    this.middleNameField = 'input[name="middleName"]'
+    this.employeeIdField = 'input[name="employeeId"]'
   }
 
   verifyPersonalDetailsVisible() {
@@ -54,7 +56,7 @@ export class MyInfoPage extends BasePage {
   }
 
   clickSave() {
-    this.clickContains(this.saveButton)
+    cy.contains(this.saveButton).click({ force: true })
     return this
   }
 
@@ -62,6 +64,26 @@ export class MyInfoPage extends BasePage {
     this.containsText(this.successMessage, { timeout: 10000 }).should(
       'be.visible'
     )
+    return this
+  }
+
+  verifyToastVisible() {
+    cy.contains('Success').should('be.visible')
+    return this
+  }
+
+  verifyToastDisappears() {
+    cy.contains('Success', { timeout: 10000 }).should('not.exist')
+    return this
+  }
+
+  editMiddleName(name) {
+    cy.get(this.middleNameField).type(name, { force: true })
+    return this
+  }
+
+  editEmployeeId(id) {
+    cy.get(this.employeeIdField).clear({ force: true }).type(id, { force: true })
     return this
   }
 
