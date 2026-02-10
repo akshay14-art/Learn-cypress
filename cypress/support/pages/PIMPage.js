@@ -13,6 +13,7 @@ export class PIMPage extends BasePage {
     this.searchInput = 'input[placeholder="Type for hints..."]'
     this.searchButton = 'Search'
     this.resetButton = 'Reset'
+    this.nextPageButton = 'button[aria-label="Next Page"]'
     this.tableBody = '.oxd-table-body'
     this.tableCard = '.oxd-table-card'
     this.tableCell = '.oxd-table-cell'
@@ -92,6 +93,19 @@ export class PIMPage extends BasePage {
 
   clickReset() {
     this.clickContains(this.resetButton)
+    return this
+  }
+
+  goToNextPageIfEnabled() {
+    cy.get('body').then($body => {
+      if ($body.find(this.nextPageButton).length > 0) {
+        cy.get(this.nextPageButton).then($btn => {
+          if ($btn.is(':enabled')) {
+            cy.wrap($btn).click()
+          }
+        })
+      }
+    })
     return this
   }
 
