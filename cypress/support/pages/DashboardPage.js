@@ -6,7 +6,7 @@ export class DashboardPage extends BasePage {
   }
 
   navigateToPIM() {
-    this.clickContains('PIM')
+    this.clickContains('PIM', { timeout: 10000 })
     return this
   }
 

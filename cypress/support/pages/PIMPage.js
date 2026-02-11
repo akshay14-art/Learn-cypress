@@ -21,7 +21,7 @@ export class PIMPage extends BasePage {
   }
 
   verifyEmployeeInformationVisible() {
-    this.containsText(this.employeeInfoHeader).should('be.visible')
+    this.containsText(this.employeeInfoHeader, { timeout: 10000 }).should('be.visible')
     return this
   }
 
@@ -86,7 +86,7 @@ export class PIMPage extends BasePage {
   }
 
   searchEmployee(employeeName) {
-    cy.get(this.searchInput).first().type(employeeName)
+    cy.get(this.searchInput, { timeout: 10000 }).first().type(employeeName)
     this.clickContains(this.searchButton)
     return this
   }
@@ -120,7 +120,7 @@ export class PIMPage extends BasePage {
   }
 
   verifyTableRowsExist() {
-    cy.get(this.tableCard).should('have.length.greaterThan', 0)
+    cy.get(this.tableCard, { timeout: 10000 }).its('length').should('be.gt', 0)
     return this
   }
 
@@ -133,9 +133,18 @@ export class PIMPage extends BasePage {
     return this
   }
 
-  clickFirstTableRowAction() {
-    cy.get(this.tableCard).first().find('button').first().click()
+  clickFirstEmployeeRow() {
+    cy.get(this.tableCard, { timeout: 10000 }).first().should('be.visible').click()
     return this
+  }
+
+  getFirstEmployeeId() {
+    return cy
+      .get(this.tableCard, { timeout: 10000 })
+      .first()
+      .find(this.tableCell)
+      .eq(1)
+      .invoke('text')
   }
 
   verifyViewDetailsPage() {
