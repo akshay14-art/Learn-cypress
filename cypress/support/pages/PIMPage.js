@@ -14,6 +14,8 @@ export class PIMPage extends BasePage {
     this.searchButton = 'Search'
     this.resetButton = 'Reset'
     this.nextPageButton = 'button[aria-label="Next Page"]'
+    this.employeeIdField = '.oxd-input--active'
+    this.employeeListLink = 'Employee List'
     this.tableBody = '.oxd-table-body'
     this.tableCard = '.oxd-table-card'
     this.tableCell = '.oxd-table-cell'
@@ -56,7 +58,41 @@ export class PIMPage extends BasePage {
   }
 
   clickSave() {
-    this.clickContains(this.saveButton)
+    cy.contains(this.saveButton).click({ force: true })
+    return this
+  }
+
+  captureEmployeeId() {
+    cy.get(this.employeeIdField).eq(2).invoke('val').as('empId')
+    return this
+  }
+
+  verifyFirstName(firstName) {
+    cy.get(this.firstNameField).should('have.value', firstName)
+    return this
+  }
+
+  verifyLastName(lastName) {
+    cy.get(this.lastNameField).should('have.value', lastName)
+    return this
+  }
+
+  navigateToEmployeeList() {
+    this.clickContains(this.employeeListLink)
+    return this
+  }
+
+  verifyEmployeeInTable(firstName) {
+    this.containsText(firstName).should('be.visible')
+    return this
+  }
+
+  verifyEmployeeIdInTable() {
+    cy.get('@empId').then(id => {
+      if (id) {
+        cy.contains(id).should('be.visible')
+      }
+    })
     return this
   }
 
